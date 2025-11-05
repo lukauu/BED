@@ -5,7 +5,7 @@ import layouts from "express-ejs-layouts";
 import methodOverride from "method-override";
 import { errorController } from "./controllers/errorController.js";
 import { homeController } from "./controllers/homeController.js";
-
+import { courseController } from "./controllers/courseController.js";
 
 const app = express();
 const router = express.Router();
@@ -28,11 +28,9 @@ router.use(layouts);
 router.use(express.static("public"));
 router.use(express.json());
 
-router.get("/", (req, res) => {
-  res.render("index");
-});
+router.get("/", homeController.index)
 
-router.get("/courses", homeController.showCourses);
+router.get("/courses", courseController.showCourses);
 router.get("/contact", homeController.showSignUp);
 router.post("/contact", homeController.postedSignUpForm);
 

@@ -1,4 +1,5 @@
-import httpStatus from "http-status-codes"
+"use strict";
+import httpStatus from "http-status-codes";
 
 const errorLogger = (error, req, res, next) => {
   console.error(error.stack)

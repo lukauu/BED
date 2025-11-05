@@ -1,22 +1,7 @@
-var courses = [
-  {
-    title: "Event Driven Cakes",
-    cost: 50
-  },
-  {
-    title: "Asynchronous Artichoke",
-    cost: 25
-  },
-  {
-    title: "Object Oriented Orange Juice",
-    cost: 10
-  }
-];
+"use strict";
 
-const showCourses = (req, res) => {
-  res.render("courses", {
-    offeredCourses: courses
-  });
+const index = (req, res) => {
+  res.render("index");
 };
 
 const showSignUp = (req, res) => {
@@ -28,7 +13,7 @@ const postedSignUpForm = (req, res) => {
 };
 
 export const homeController = {
-  showCourses,
+  index,
   showSignUp,
   postedSignUpForm
 };
