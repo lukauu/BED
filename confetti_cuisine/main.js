@@ -5,6 +5,7 @@ import layouts from "express-ejs-layouts";
 import methodOverride from "method-override";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import helmet from "helmet";
 import { errorController } from "./controllers/errorController.js";
 import { homeController } from "./controllers/homeController.js";
 import { courseController } from "./controllers/courseController.js";
@@ -14,6 +15,7 @@ dotenv.config()
 const app = express();
 const router = express.Router();
 
+app.use(helmet())
 
 if (!process.env.MONGODB_URL) {
   console.error("Missing required environment variable MONGODB_URI.");
