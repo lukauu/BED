@@ -1,10 +1,13 @@
 "use strict";
 
-const express = require("express");
+import express from "express";
+import layouts from "express-ejs-layouts"
+import { errorController } from "./controllers/errorController.js"
+import { homeController } from "./controllers/homeController.js";
+
+
 const app = express();
-const homeController = require("./controllers/homeController");
-const errorController = require("./controllers/errorController");
-const layouts = require("express-ejs-layouts");
+const router = express.Router();
 
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
