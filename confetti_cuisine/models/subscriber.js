@@ -4,10 +4,24 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const subscriberSchema = new Schema({
-    name: String,
-    email: String,
-    zipCode: Number,
-    streetAddress: String,
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        lowercase: true,
+        trim: true,
+        required: true
+    },
+    zipCode: {
+        type: Number,
+        required: true
+    },
+    streetAddress: {
+        type: String,
+        required: true
+    },
     vip: Boolean
 });
 
