@@ -14,23 +14,25 @@ const getAllSubscribers  = async (req, res, next) => {
 };
 
 const getSubscriptionPage = (req, res) => {
-    res.render("contact")
+    res.render("contact");
 };
 
-const saveSubscriber = (req, res) => {
-    let newSubscriber = new Subscriber( {
-        name: req.body.name,
-        email: req.body.email,
-        zipCode: req.body.zipCode
-    });
+const saveSubscriber = async (req, res) => {
+    try {
+        let newSubscriber = new Subscriber( {
+            name: req.body.name,
+            email: req.body.email,
+            zipCode: Number(req.body.zipCode),
+            streetAddress: req.body.streetAddress,
+            vip: Boolean(req.body.vip)
+        });
 
-    newSubscriber.save()
-        .then(() => {
-            res.render("thanks");
-        })
-        .catch(error => {
-            res.send(error)
-        })
+        await newSubscriber.save();
+        res.render("thanks");
+
+    } catch (error) {
+        next(error);
+    }
 };
 
 export const subscriberController = {
