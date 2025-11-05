@@ -3,6 +3,7 @@
 import express from "express";
 import layouts from "express-ejs-layouts";
 import methodOverride from "method-override";
+import dotenv from "dotenv";
 import { errorController } from "./controllers/errorController.js";
 import { homeController } from "./controllers/homeController.js";
 import { courseController } from "./controllers/courseController.js";
@@ -10,6 +11,7 @@ import { courseController } from "./controllers/courseController.js";
 const app = express();
 const router = express.Router();
 
+dotenv.config()
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
 app.use(
