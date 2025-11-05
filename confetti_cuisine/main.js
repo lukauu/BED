@@ -1,8 +1,9 @@
 "use strict";
 
 import express from "express";
-import layouts from "express-ejs-layouts"
-import { errorController } from "./controllers/errorController.js"
+import layouts from "express-ejs-layouts";
+import methodOverride from "method-override";
+import { errorController } from "./controllers/errorController.js";
 import { homeController } from "./controllers/homeController.js";
 
 
@@ -16,20 +17,29 @@ app.use(
     extended: false
   })
 );
-app.use(express.json());
-app.use(layouts);
-app.use(express.static("public"));
 
-app.get("/", (req, res) => {
+router.use(
+    methodOverride("_method", {
+      methods: ["POST", "GET"]
+    })
+  );
+
+router.use(layouts);
+router.use(express.static("public"));
+router.use(express.json());
+
+router.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/courses", homeController.showCourses);
-app.get("/contact", homeController.showSignUp);
-app.post("/contact", homeController.postedSignUpForm);
+router.get("/courses", homeController.showCourses);
+router.get("/contact", homeController.showSignUp);
+router.post("/contact", homeController.postedSignUpForm);
 
-app.use(errorController.pageNotFoundError);
-app.use(errorController.internalServerError);
+router.use(errorController.pageNotFoundError);
+router.use(errorController.internalServerError);
+
+app.use("/", router)
 
 app.listen(app.get("port"), () => {
   console.log(`Server running at http://localhost:${app.get("port")}`);

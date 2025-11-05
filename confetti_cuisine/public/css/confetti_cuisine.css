@@ -9,23 +9,25 @@ body {
 
 #nav {
   width: 100%;
-  height: 110px;
-  padding: 20px 0 5px 0;
-  border-bottom: solid 8px #ee3114;
-  box-shadow: 10px 10px 10px #ccc;
+  height: 80px;
+  padding: 10px 0 5px 0;
+  border-bottom: solid 4px #4400ff;
+  box-shadow: 2px 2px 2px #ccc;
   position: absolute;
   top: 0;
 }
 
 #title {
-  color: #625a56;
+  color: #4400ff;
   margin: 0;
-  font-family: "Baloo Bhaina";
+  font-family: "Times New Roman";
   text-transform: uppercase;
 }
 
 img {
-  width: 100%;
+  display: block;
+  margin: auto;
+  width: 50%;
 }
 
 a {
@@ -47,15 +49,15 @@ a {
 }
 
 .button {
-  background-color: #ed4a0f;
+  background-color: #4400ff;
   padding: 0.3vw 3vw;
-  border-radius: 2px;
+  border-radius: 10px;
   cursor: pointer;
   display: inline-block;
   color: #fff;
 }
 
 .button:hover {
-  background-color: #ffb99f;
-  color: #ed4a0f;
+  background-color: #008cff;
+  color: #96cffd;
 }
