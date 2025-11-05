@@ -1,0 +1,18 @@
+<form action="<%= submitPath %>" method="post">
+  <label for="name">Name</label>
+  <input type="text" name="name" value="">
+  <br>
+  <label for="email">Email</label>
+  <input type="email" name="email" value="">
+  <br>
+  <label for="zipCode">Zip code</label>
+  <input type="text" pattern="[0-9]{5}" name="zipCode" placeholder="Zip code">
+  <br>
+  <label for="streetAddress">Street Address</label>
+  <input type="text" name="streetAddress" placeholder="Street Address">
+  <br>
+  <label for="vip">VIP</label>
+  <input type="checkbox" name="vip" value="true">
+  <br>
+  <input class="button" type="submit" value="submit">
+</form>
