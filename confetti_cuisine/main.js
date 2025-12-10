@@ -60,6 +60,9 @@ router.put("/users/:id/update", usersController.update, usersController.redirect
 router.get("/users/:id", usersController.show, usersController.showView);
 router.delete("/users/:id/delete", usersController.delete, usersController.redirectView);
 
+router.get('/login', usersController.loginPage);
+router.post('/login', usersController.login);
+
 router.get("/subscribers", subscribersController.index, subscribersController.indexView);
 router.get("/subscribers/new", subscribersController.new);
 router.post(
