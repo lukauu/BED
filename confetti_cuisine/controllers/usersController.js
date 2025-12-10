@@ -115,6 +115,34 @@ const deleteRecord = (req, res, next) => {
     });
 };
 
+export const loginPage = (req, res) => {
+  res.render('login');
+};
+
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.render('login', { 
+        errors: ['Email and password are required'] 
+      });
+    }
+    req.login(req.user, (err) => {
+      if (err) {
+        return res.render('login', { 
+          errors: ['Login failed. Please try again.'] 
+        });
+      }
+      res.redirect('/');
+    });
+  } catch (error) {
+    res.render('login', { 
+      errors: ['An error occurred during login'] 
+    });
+  }
+};
+
 export const usersController = {
   index,
   indexView,
