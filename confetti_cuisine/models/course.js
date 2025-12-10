@@ -1,9 +1,9 @@
 "use strict";
+import mongoose from "mongoose";
 
-const mongoose = require("mongoose"),
-  { Schema } = require("mongoose");
+const { Schema } = mongoose;
 
-var courseSchema = new Schema(
+const courseSchema = new Schema(
   {
     title: {
       type: String,
@@ -23,6 +23,9 @@ var courseSchema = new Schema(
       type: Number,
       default: 0,
       min: [0, "Course cannot have a negative cost"]
+    },
+    prerequisites: {
+      type: [String]
     }
   },
   {

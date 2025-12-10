@@ -1,10 +1,11 @@
 "use strict";
 
-const mongoose = require("mongoose"),
-  { Schema } = require("mongoose"),
-  Subscriber = require("./subscriber");
+import mongoose from "mongoose";
+import { Subscriber } from "./subscriber.js";
 
-var userSchema = new Schema(
+const { Schema } = mongoose;
+
+const userSchema = new Schema(
   {
     name: {
       first: {
@@ -62,4 +63,8 @@ userSchema.pre("save", function(next) {
   }
 });
 
-module.exports = mongoose.model("User", userSchema);
+userSchema.post("save", function(doc) {
+  console.log(`User ${doc.name.first} ${doc.name.last} has been successfully created.`);
+});
+
+export const User = mongoose.model("User", userSchema);
