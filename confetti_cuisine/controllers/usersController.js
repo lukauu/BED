@@ -124,22 +124,19 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.render('login', { 
-        errors: ['Email and password are required'] 
-      });
+      console.log('Email and password are required');
+      return res.render('login');
     }
     req.login(req.user, (err) => {
       if (err) {
-        return res.render('login', { 
-          errors: ['Login failed. Please try again.'] 
-        });
+        console.log(`Login failed: ${err.message}`);
+        return res.render('login');
       }
       res.redirect('/');
     });
   } catch (error) {
-    res.render('login', { 
-      errors: ['An error occurred during login'] 
-    });
+    console.log(`An error occurred during login: ${error.message}`);
+    res.render('login');
   }
 };
 
@@ -153,5 +150,7 @@ export const usersController = {
   showView,
   edit,
   update,
-  delete: deleteRecord
+  delete: deleteRecord,
+  loginPage,
+  login
 };
