@@ -9,7 +9,8 @@ import helmet from "helmet";
 import { errorController } from "./controllers/errorController.js";
 import { homeController } from "./controllers/homeController.js";
 import { courseController } from "./controllers/courseController.js";
-import { subscriberController } from "./controllers/subscriberController.js";
+import { subscribersController } from "./controllers/subscriberController.js";
+import { usersController } from "./controllers/usersController.js"
 
 dotenv.config()
 const app = express();
@@ -17,12 +18,12 @@ const router = express.Router();
 
 app.use(helmet())
 
-if (!process.env.MONGODB_URL) {
+if (!process.env.MONGODB_URI) {
   console.error("Missing required environment variable MONGODB_URI.");
   process.exit(1);
 }
 
-mongoose.connect(process.env.MONGODB_URL, { })
+mongoose.connect(process.env.MONGODB_URI, { })
   .then(() => console.log("Connected to MongoDB"))
   .catch(error => {
     console.error("Error connecting to MongoDB:", error.message);
@@ -30,6 +31,7 @@ mongoose.connect(process.env.MONGODB_URL, { })
   });
 
   app.set("view engine", "ejs");
+  app.set("views", "./views");
   app.set("port", process.env.PORT || 3000);
   
   app.use(
@@ -38,25 +40,56 @@ mongoose.connect(process.env.MONGODB_URL, { })
     })
   );
 
-  router.use(
+  app.use(
     methodOverride("_method", {
       methods: ["POST", "GET"]
     })
   );
 
-  router.use(layouts);
-  router.use(express.static("public"));
-  router.use(express.json());
+  app.use(layouts);
+  app.use(express.static("public"));
+  app.use(express.json());
 
-  router.get("/", homeController.index)
+  router.get("/", homeController.index);
 
-  router.get("/courses", courseController.showCourses);
-  router.get("/subscribers", subscriberController.getAllSubscribers);
-  router.get("/contact", subscriberController.getSubscriptionPage);
-  router.post("/subscribe", subscriberController.saveSubscriber);
+router.get("/users", usersController.index, usersController.indexView);
+router.get("/users/new", usersController.new);
+router.post("/users/create", usersController.create, usersController.redirectView);
+router.get("/users/:id/edit", usersController.edit);
+router.put("/users/:id/update", usersController.update, usersController.redirectView);
+router.get("/users/:id", usersController.show, usersController.showView);
+router.delete("/users/:id/delete", usersController.delete, usersController.redirectView);
 
-  router.use(errorController.pageNotFoundError);
-  router.use(errorController.internalServerError);
+router.get("/subscribers", subscribersController.index, subscribersController.indexView);
+router.get("/subscribers/new", subscribersController.new);
+router.post(
+  "/subscribers/create",
+  subscribersController.create,
+  subscribersController.redirectView
+);
+router.get("/subscribers/:id/edit", subscribersController.edit);
+router.put(
+  "/subscribers/:id/update",
+  subscribersController.update,
+  subscribersController.redirectView
+);
+router.get("/subscribers/:id", subscribersController.show, subscribersController.showView);
+router.delete(
+  "/subscribers/:id/delete",
+  subscribersController.delete,
+  subscribersController.redirectView
+);
+
+router.get("/courses", courseController.index, courseController.indexView);
+router.get("/courses/new", courseController.new);
+router.post("/courses/create", courseController.create, courseController.redirectView);
+router.get("/courses/:id/edit", courseController.edit);
+router.put("/courses/:id/update", courseController.update, courseController.redirectView);
+router.get("/courses/:id", courseController.show, courseController.showView);
+router.delete("/courses/:id/delete", courseController.delete, courseController.redirectView);
+
+router.use(errorController.pageNotFoundError);
+router.use(errorController.internalServerError);
 
   app.use("/", router)
 

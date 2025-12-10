@@ -4,6 +4,7 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
+      <th>Age (days)</th>
       <th>Edit</th>
       <th>Delete</th>
     </tr>
@@ -18,6 +19,9 @@
       </td>
       <td>
         <%= subscriber.email %>
+      </td>
+      <td>
+        <%= subscriber.subscriberAge %>
       </td>
       <td>
         <a href="<%=`subscribers/${subscriber._id}/edit`%>">

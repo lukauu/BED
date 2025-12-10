@@ -1,7 +1,6 @@
-"use strict";
+import { User } from "../models/user.js";
 
-const User = require("../models/user"),
-  getUserParams = body => {
+const getUserParams = body => {
     return {
       name: {
         first: body.first,
@@ -13,7 +12,7 @@ const User = require("../models/user"),
     };
   };
 
-module.exports = {
+export const usersController = {
   index: (req, res, next) => {
     User.find()
       .then(users => {
@@ -105,7 +104,7 @@ module.exports = {
 
   delete: (req, res, next) => {
     let userId = req.params.id;
-    User.findByIdAndRemove(userId)
+    User.findByIdAndDelete(userId)
       .then(() => {
         res.locals.redirect = "/users";
         next();

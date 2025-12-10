@@ -27,6 +27,16 @@
       <%= course.cost%>
     </td>
   </tr>
+  <tr>
+    <th>Prerequisites</th>
+    <td>
+      <% if (course.prerequisites && course.prerequisites.length > 0) { %>
+        <%= course.prerequisites.join(", ") %>
+      <% } else { %>
+        None
+      <% } %>
+    </td>
+  </tr>
 </table>
 
 
